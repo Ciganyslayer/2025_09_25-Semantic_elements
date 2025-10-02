@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trailers</title>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Filmtár – Előzetesek</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+<body>
+
+    <header>
+        <h1>Filmtár – Előzetesek</h1>
+        <nav>
+            <a href="index.html">Főoldal</a>
+            <a href="hirek.html">Hírek</a>
+            <a href="kapcsolat.html">Kapcsolat</a>
+            <a href="trailer.html">Trailerek</a>
+            <a href="regisztracio.html">Regisztráció</a>
+        </nav>
+    </header>
+
+    <main class="layout">
+        <aside class="list" aria-label="Előzetes lista">
+            <button class="item" data-target="vid-conjuring" aria-controls="vid-conjuring">
+                <img class="thumb" src="images/demonok_kozott_poszter.jpg (1).webp" alt="Démonok között – plakát">
+                <div class="meta">
+                    <span class="title">Démonok között – Utolsó rítusok</span>
+                    <span class="date">2025. szeptember 25.</span>
+                </div>
+                <span class="play">Lejátszás ▶</span>
+            </button>
+
+            <button class="item" data-target="vid-predator" aria-controls="vid-predator">
+                <img class="thumb" src="images/7365D2R.webp" alt="Predator: Halálbolygó – plakát">
+                <div class="meta">
+                    <span class="title">Predator: Halálbolygó</span>
+                    <span class="date">2025. szeptember 25.</span>
+                </div>
+                <span class="play">Lejátszás ▶</span>
+            </button>
+
+            <button class="item" data-target="vid-tron" aria-controls="vid-tron">
+                <img class="thumb" src="images/7147D2R.webp" alt="Tron: Ares – plakát">
+                <div class="meta">
+                    <span class="title">Tron: Ares</span>
+                    <span class="date">2025. szeptember 25.</span>
+                </div>
+                <span class="play">Lejátszás ▶</span>
+            </button>
+        </aside>
+
+        <section class="viewer" aria-labelledby="viewer-title">
+            <h2 id="viewer-title">Előzetes lejátszó</h2>
+
+            <div class="video-wrap">
+                <!-- 1) Démonok között -->
+                <video id="vid-conjuring" class="vid" controls preload="metadata"
+                    poster="images/demonok_kozott_poszter.jpg (1).webp">
+                    <source src="images/demovokkozott.mp4" type="video/mp4">
+                    <track default kind="captions" srclang="hu" label="Magyar" src="captions/conjuring3_hu.vtt">
+                    A böngésző nem támogatja a videó lejátszását.
+                </video>
+
+                <!-- 2) Predator -->
+                <video id="vid-predator" class="vid" hidden controls preload="metadata" poster="images/7365D2R.webp">
+                    <source src="images/predator.mp4" type="video/mp4">
+                    <track default kind="captions" srclang="hu" label="Magyar" src="captions/predator_hu.vtt">
+                </video>
+
+                <!-- 3) Tron: Ares -->
+                <video id="vid-tron" class="vid" hidden controls preload="metadata" poster="images/7147D2R.webp">
+                    <source src="images/tron.mp4" type="video/mp4">
+                    <track default kind="captions" srclang="hu" label="Magyar" src="captions/tron_ares_hu.vtt">
+                </video>
+            </div>
+
+            <article class="desc" id="desc" aria-live="polite">
+                Démonok között – Utolsó rítusok – 2025. szeptember 25. A túlvilág ezúttal a Warren házaspárra vadászik.
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <small>© 2025 Filmtár</small>
+    </footer>
+
+    <script>
+        // Váltás a kész <video> blokkok között a hidden attribútummal
+        const videos = Array.from(document.querySelectorAll('.vid'));
+        const desc = document.getElementById('desc');
+
+        const descriptions = {
+            "vid-conjuring": "Démonok között – Utolsó rítusok – 2025. szeptember 25. A túlvilág ezúttal a Warren házaspárra vadászik.",
+            "vid-predator": "Predator: Halálbolygó – 2025. szeptember 25. Száműzött predator és egy android közös küldetése.",
+            "vid-tron": "Tron: Ares – 2025. szeptember 25. Ares a digitális világból a valóságba érkezik."
+        };
+
+        function showVideo(id) {
+            videos.forEach(v => {
+                const willShow = v.id === id;
+                v.hidden = !willShow;
+                if (willShow) {
+                    v.load();
+                    v.play().catch(() => { });
+                    desc.textContent = descriptions[id] || '';
+                } else {
+                    v.pause();
+                }
+            });
+        }
+
+        document.querySelectorAll('.item').forEach(btn => {
+            btn.addEventListener('click', () => showVideo(btn.dataset.target));
+        });
+
+        // Alapértelmezett: az első látszik
+        showVideo('vid-conjuring');
+    </script>
+</body>
+
+</html>

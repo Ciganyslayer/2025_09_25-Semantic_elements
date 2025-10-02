@@ -1,0 +1,190 @@
+/* Alapok */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    line-height: 1.55;
+    color: #222;
+    background: #f7f7f9;
+}
+
+/* Oldalszélesség és térközök */
+header,
+nav,
+main,
+footer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Címsor, navigáció */
+header {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: #1a73e8;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Elrendezés: mobilon 1 oszlop, desktopon 2 oszlop */
+.layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 900px) {
+    .layout {
+        grid-template-columns: 280px 1fr;
+        align-items: start;
+    }
+}
+
+/* Bal oldali lista */
+.list {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: .5rem;
+}
+
+.item {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: .75rem;
+    align-items: center;
+    padding: .5rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.item:hover {
+    background: #f2f4f8;
+}
+
+.thumb {
+    width: 64px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
+}
+
+.meta {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+}
+
+.title {
+    font-weight: 600;
+}
+
+.date {
+    font-size: .875rem;
+    color: #6b7280;
+}
+
+.play {
+    color: #22c55e;
+    font-size: .9rem;
+}
+
+/* Jobb oldali lejátszó */
+.viewer {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+#viewer-title {
+    margin: 0 0 .5rem;
+}
+
+/* Videó – reszponzív 16:9 */
+.video-wrap {
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid #e5e7eb;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: #000;
+}
+
+/* Leírás */
+.desc {
+    margin-top: .75rem;
+    color: #334155;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: .7rem .9rem;
+}
+
+/* Fókusz – egyszerű, látható */
+:where(a, button) {
+    outline: none;
+}
+
+:where(a, button):focus-visible {
+    outline: 3px solid #1a73e8;
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+/* Kisebb kijelző finomítások */
+@media (max-width: 599px) {
+
+    header,
+    nav,
+    main,
+    footer {
+        padding: .75rem;
+    }
+
+    .item {
+        grid-template-columns: 56px 1fr auto;
+    }
+
+    .thumb {
+        width: 56px;
+        height: 84px;
+    }
+}
+
+/* (Opcionális) görgetős lista nagy kijelzőn, ha sok film van */
+@media (min-width: 900px) {
+    .list {
+        max-height: calc(100vh - 220px);
+        overflow: auto;
+    }
+}
